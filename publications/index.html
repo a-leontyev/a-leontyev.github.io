@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Публикации — Антон Леонтьев</title>
+  <meta name="description" content="Научные и технические публикации Антона Леонтьева: C++, FPGA, гидродинамика, OT/CRDT, оптимизация производительности.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>А</text></svg>">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <a href="../" class="nav-brand">А. Леонтьев</a>
+    <div class="nav-right">
+      <a href="./" class="nav-link" style="color:var(--t1)">Публикации</a>
+      <a href="../extensions/" class="nav-link">Расширения</a>
+      <button class="lang-btn" id="lang-toggle" aria-label="Switch language">EN</button>
+    </div>
+  </nav>
+</div>
+<hr class="divider">
+
+<div class="wrap">
+  <div class="page-header">
+    <h1 data-ru="Публикации" data-en="Publications">Публикации</h1>
+    <p data-ru="Научные статьи, технические материалы и Хабр-публикации" data-en="Scientific papers, technical articles, and Habr publications">Научные статьи, технические материалы и Хабр-публикации</p>
+  </div>
+
+  <div class="filter-bar" id="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="dev" data-ru="Разработка" data-en="Development">Разработка</button>
+    <button class="filter-btn" data-filter="research" data-ru="Исследования" data-en="Research">Исследования</button>
+  </div>
+
+  <div class="pub-grid" id="pub-list">
+
+    <a href="https://habr.com/p/1009742/" class="pub-card" data-cat="dev" target="_blank" rel="noopener">
+      <div>
+        <div class="pub-title">OT vs CRDT в совместном редактировании</div>
+        <p class="pub-excerpt">Сравнение подходов к коллаборативному редактированию на примере реального формульного движка</p>
+        <div class="pub-tags"><span class="pub-tag">Хабр</span><span class="pub-tag">OT</span><span class="pub-tag">CRDT</span><span class="pub-tag">C++</span></div>
+      </div>
+      <div class="pub-date">2025</div>
+    </a>
+
+    <a href="../articles/cpp-performance-optimization.html" class="pub-card" data-cat="dev">
+      <div>
+        <div class="pub-title">Оптимизация производительности C++</div>
+        <p class="pub-excerpt">Эффективные структуры данных, оптимизация компилятора, профилирование и кэш-линии</p>
+        <div class="pub-tags"><span class="pub-tag">C++</span><span class="pub-tag">Performance</span><span class="pub-tag">Algorithms</span></div>
+      </div>
+      <div class="pub-date">2025</div>
+    </a>
+
+    <a href="../articles/fpga-topology.html" class="pub-card" data-cat="research">
+      <div>
+        <div class="pub-title">Синтезатор топологических ограничений ПЛИС</div>
+        <p class="pub-excerpt">Автоматизация создания топологических ограничений для реконфигурируемых вычислительных систем на базе ПЛИС</p>
+        <div class="pub-tags"><span class="pub-tag">FPGA</span><span class="pub-tag">Xilinx</span><span class="pub-tag">САПР</span></div>
+      </div>
+      <div class="pub-date">2022</div>
+    </a>
+
+    <a href="../articles/hydrodynamics.html" class="pub-card" data-cat="research">
+      <div>
+        <div class="pub-title">Моделирование гидродинамических процессов</div>
+        <p class="pub-excerpt">Численная модель водоёма с переменной глубиной для прогнозирования изменений уровня воды и течений</p>
+        <div class="pub-tags"><span class="pub-tag">Гидродинамика</span><span class="pub-tag">Моделирование</span></div>
+      </div>
+      <div class="pub-date">2022</div>
+    </a>
+
+    <a href="../articles/hydrophysical-processes-fpga.html" class="pub-card" data-cat="research">
+      <div>
+        <div class="pub-title">ПЛИС-технологии для моделирования гидрофизических процессов</div>
+        <p class="pub-excerpt">Численная модель водоёма со сложным рельефом дна для мониторинга и предотвращения экологических катастроф</p>
+        <div class="pub-tags"><span class="pub-tag">FPGA</span><span class="pub-tag">Гидрофизика</span><span class="pub-tag">Экология</span></div>
+      </div>
+      <div class="pub-date">2021</div>
+    </a>
+
+  </div>
+</div>
+
+<footer><div class="wrap">© 2026 Антон Леонтьев</div></footer>
+
+<script src="../script.js"></script>
+<script>
+(function () {
+  var filters = document.getElementById('filters');
+  var cards = document.querySelectorAll('.pub-card');
+  if (!filters) return;
+  filters.addEventListener('click', function (e) {
+    var btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    filters.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var f = btn.dataset.filter;
+    cards.forEach(function (c) {
+      c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
+    });
+  });
+})();
+</script>
+</body>
+</html>

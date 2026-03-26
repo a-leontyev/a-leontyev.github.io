@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://leontevanton.github.io/sitemap.xml

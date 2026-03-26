@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VSCode Extensions — L.A.L. Development</title>
+  <meta name="description" content="VSCode расширения от L.A.L. Development: Lector, Noctua, Augur, Vigil, Ephemeris. Инструменты для C++ разработчиков.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>А</text></svg>">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <a href="../" class="nav-brand">А. Леонтьев</a>
+    <div class="nav-right">
+      <a href="../publications/" class="nav-link">Публикации</a>
+      <a href="./" class="nav-link" style="color:var(--t1)">Расширения</a>
+      <button class="lang-btn" id="lang-toggle" aria-label="Switch language">EN</button>
+    </div>
+  </nav>
+</div>
+<hr class="divider">
+
+<div class="wrap">
+  <div class="ext-hero">
+    <div class="sh-overline">L.A.L. Development</div>
+    <h1 data-ru="VSCode расширения" data-en="VSCode extensions">VSCode расширения</h1>
+    <p data-ru="Инструменты разработчика, рождённые из реального production-опыта. C++, документация, runtime-анализ, контроль версий." data-en="Developer tools born from real production experience. C++, documentation, runtime analysis, version control.">Инструменты разработчика, рождённые из реального production-опыта. C++, документация, runtime-анализ, контроль версий.</p>
+    <div class="stat-row">
+      <div><div class="stat-num">5</div><div class="stat-label" data-ru="расширений" data-en="extensions">расширений</div></div>
+      <div><div class="stat-num">1</div><div class="stat-label" data-ru="на днях" data-en="coming days">на днях</div></div>
+      <div><div class="stat-num">4</div><div class="stat-label" data-ru="скоро" data-en="soon">скоро</div></div>
+    </div>
+  </div>
+
+  <div class="full-card gold">
+    <div class="fc-accent"></div>
+    <div class="fc-body">
+      <div class="fc-top">
+        <div class="fc-title">Lector</div>
+        <div class="fc-metaphor" data-ru="читает документы вглубь" data-en="reads documents deeply">читает документы вглубь</div>
+      </div>
+      <div class="fc-desc" data-ru="Интеллектуальный читатель документации, спецификаций и технических текстов. Анализирует контекст, перекрёстные ссылки и неявные зависимости — выходит за пределы поверхностного парсинга." data-en="Intelligent reader for documentation, specs, and technical texts. Analyzes context, cross-references, and implicit dependencies — goes beyond surface-level parsing.">Интеллектуальный читатель документации, спецификаций и технических текстов. Анализирует контекст, перекрёстные ссылки и неявные зависимости — выходит за пределы поверхностного парсинга.</div>
+      <div class="fc-tags"><span class="fc-tag">documentation</span><span class="fc-tag">analysis</span><span class="fc-tag">productivity</span></div>
+      <div class="fc-actions"><span class="btn">Soon</span></div>
+    </div>
+  </div>
+
+  <div class="full-card blue">
+    <div class="fc-accent"></div>
+    <div class="fc-body">
+      <div class="fc-top">
+        <div class="fc-title">Noctua</div>
+        <div class="fc-metaphor" data-ru="сова видит runtime в темноте" data-en="the owl sees runtime in the dark">сова видит runtime в темноте</div>
+      </div>
+      <div class="fc-desc" data-ru="Инструмент видимости runtime. Освещает то, что происходит во время выполнения — состояния переменных, пути вызовов, горячие точки производительности — всё, что невидимо при статическом анализе кода." data-en="Runtime visibility tool. Illuminates what happens at execution time — variable states, call paths, performance hotspots — things invisible in static code review.">Инструмент видимости runtime. Освещает то, что происходит во время выполнения — состояния переменных, пути вызовов, горячие точки производительности — всё, что невидимо при статическом анализе кода.</div>
+      <div class="fc-tags"><span class="fc-tag">runtime</span><span class="fc-tag">C++</span><span class="fc-tag">debugging</span><span class="fc-tag">performance</span></div>
+      <div class="fc-actions"><span class="btn">Soon</span></div>
+    </div>
+  </div>
+
+  <div class="full-card purple">
+    <div class="fc-accent"></div>
+    <div class="fc-body">
+      <div class="fc-top">
+        <div class="fc-title">Augur</div>
+        <div class="fc-metaphor" data-ru="предсказывает проблемы в C++" data-en="predicts problems in C++">предсказывает проблемы в C++</div>
+      </div>
+      <div class="fc-desc" data-ru="Компаньон статического анализа, который выявляет потенциальные проблемы до их проявления. Ловит паттерны, ведущие к UB, утечкам памяти, гонкам данных и тонким логическим ошибкам в C++ коде." data-en="Static analysis companion that identifies potential issues before they manifest. Catches patterns leading to UB, memory leaks, data races, and subtle logic errors in C++.">Компаньон статического анализа, который выявляет потенциальные проблемы до их проявления. Ловит паттерны, ведущие к UB, утечкам памяти, гонкам данных и тонким логическим ошибкам в C++ коде.</div>
+      <div class="fc-tags"><span class="fc-tag">C++</span><span class="fc-tag">static analysis</span><span class="fc-tag">code quality</span></div>
+      <div class="fc-actions"><span class="btn">Soon</span></div>
+    </div>
+  </div>
+
+  <div class="full-card gold">
+    <div class="fc-accent"></div>
+    <div class="fc-body">
+      <div class="fc-top">
+        <div class="fc-title">Vigil</div>
+        <div class="fc-metaphor" data-ru="страж Gitea" data-en="the guardian watches Gitea">страж Gitea</div>
+      </div>
+      <div class="fc-desc" data-ru="Интеграция Gitea для VSCode. Мониторинг репозиториев, ревью PR, отслеживание issues, управление workflow — всё не покидая редактор. Лёгкая альтернатива расширениям GitHub/GitLab." data-en="Gitea integration for VSCode. Monitor repos, review PRs, track issues, manage workflows — all without leaving the editor. Lightweight alternative to GitHub/GitLab extensions.">Интеграция Gitea для VSCode. Мониторинг репозиториев, ревью PR, отслеживание issues, управление workflow — всё не покидая редактор. Лёгкая альтернатива расширениям GitHub/GitLab.</div>
+      <div class="fc-tags"><span class="fc-tag">Gitea</span><span class="fc-tag">version control</span><span class="fc-tag">workflow</span></div>
+      <div class="fc-actions"><span class="btn primary" style="background:var(--gold);border-color:var(--gold)">Coming days</span></div>
+    </div>
+  </div>
+
+  <div class="full-card copper">
+    <div class="fc-accent"></div>
+    <div class="fc-body">
+      <div class="fc-top">
+        <div class="fc-title">Ephemeris</div>
+        <div class="fc-metaphor" data-ru="дневник фиксирует ход разработки" data-en="the diary records development">дневник фиксирует ход разработки</div>
+      </div>
+      <div class="fc-desc" data-ru="Автоматический дневник разработки. Отслеживает сессии кодирования, решения, переключения контекста и прогресс. Генерирует структурированные логи для стендапов, ретроспектив и личного review." data-en="Automatic development journal. Tracks coding sessions, decisions, context switches, and progress. Generates structured logs for standups, retrospectives, and personal review.">Автоматический дневник разработки. Отслеживает сессии кодирования, решения, переключения контекста и прогресс. Генерирует структурированные логи для стендапов, ретроспектив и личного review.</div>
+      <div class="fc-tags"><span class="fc-tag">productivity</span><span class="fc-tag">logging</span><span class="fc-tag">team</span></div>
+      <div class="fc-actions"><span class="btn">Soon</span></div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">L.A.L. Development · Antony Leontev · 2024—2026</div></footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

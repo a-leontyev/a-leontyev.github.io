@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оптимизация производительности C++ | Леонтьев Антон</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Дополнительные стили для страницы статьи */
+        .article-section {
+            padding-top: 120px;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .article-date {
+            display: inline-block;
+            background: var(--gradient-secondary);
+            color: var(--bg-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-category {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .reading-time {
+            color: var(--text-accent);
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .article-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .article-excerpt {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-style: italic;
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tag {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .table-of-contents {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .table-of-contents::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .toc-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toc-title::before {
+            content: '📚';
+            font-size: 1.5rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-item {
+            margin-bottom: 12px;
+        }
+
+        .toc-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 8px 0;
+            display: block;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .toc-link::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .toc-link:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            padding-left: 35px;
+        }
+
+        .toc-link:hover::before {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .article-section-content {
+            margin-bottom: 60px;
+        }
+
+        .section-heading {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 60px 0 30px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .section-heading::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25px;
+            width: 60px;
+            height: 2px;
+            background: var(--gradient-secondary);
+        }
+
+        .article-text {
+            color: var(--text-primary);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .article-text strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .article-text em {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        .code-block {
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            overflow-x: auto;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .code-block::before {
+            content: 'C++';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: var(--gradient-primary);
+            color: var(--bg-color);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 128, 0.1) 100%);
+            padding: 15px 20px;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 10px 10px 0;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .highlight::before {
+            content: '💡';
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            background: var(--bg-color);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .highlight p {
+            margin: 0;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .article-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .article-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 255, 255, 0.2);
+        }
+
+        .image-caption {
+            text-align: center;
+            color: var(--text-accent);
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 15px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .quote-block {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin: 35px 0;
+            position: relative;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 60px;
+            color: var(--accent-color);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .article-navigation {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-btn:hover {
+            color: var(--bg-color);
+            box-shadow: var(--shadow-neon);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:hover::before {
+            left: 0;
+        }
+
+        .share-section {
+            margin-top: 60px;
+            text-align: center;
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .share-title {
+            font-family: 'Orbitron', monospace;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 12px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .share-btn:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Прогресс чтения */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-primary);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .article-content {
+                padding: 0 20px;
+            }
+            
+            .section-heading {
+                font-size: 1.4rem;
+            }
+            
+            .article-navigation {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-btn {
+                justify-content: center;
+            }
+            
+            .code-block {
+                padding: 20px 15px;
+                font-size: 13px;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            
+            .article-text {
+                font-size: 16px;
+            }
+            
+            .table-of-contents {
+                padding: 20px;
+            }
+            
+            .toc-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        .nav-subtitle {
+            font-size: 14px;
+            color: var(--text-accent);
+            font-family: 'Rajdhani', sans-serif;
+        }
+        @media print {
+            body {
+                visibility: hidden;
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="matrix-background"></div>
+    <div class="particle-field"></div>
+    <div class="reading-progress" id="reading-progress"></div>
+
+    <header class="glass-header">
+        <div class="container">
+            <nav class="nav-container">
+                <a href="publications_page.html" class="back-btn cyber-btn">
+                    <span class="btn-text">← Публикации</span>
+                    <div class="btn-glow"></div>
+                </a>
+                
+                <a href="index.html"></a>
+                    <div class="logo">
+                        <div class="orbital-ring ring-1"></div>
+                        <div class="orbital-ring ring-2"></div>
+                        <img src="logo.jpg" alt="Леонтьев Антон" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-fallback">АЛ</div>
+                    </div>
+                </a>
+
+                <div class="controls">
+                    <button class="language-title" id="language-toggle">RU</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <article class="section article-section">
+            <header class="article-header fade-in-up">
+                <div class="article-meta">
+                    <div class="article-date">20 апреля 2025</div>
+                    <div class="article-category">Разработка</div>
+                    <div class="reading-time">
+                        ⏱️ 12 мин чтения
+                    </div>
+                </div>
+
+                <h1 class="article-title fade-in-up delay-1">
+                    Оптимизация производительности C++
+                </h1>
+
+                <p class="article-excerpt fade-in-up delay-2">
+                    Глубокое погружение в методы повышения производительности C++ приложений: от выбора эффективных структур данных до продвинутых техник оптимизации компилятора.
+                </p>
+
+                <div class="article-tags fade-in-up delay-3">
+                    <span class="tag">C++</span>
+                    <span class="tag">Оптимизация</span>
+                    <span class="tag">Производительность</span>
+                    <span class="tag">Алгоритмы</span>
+                    <span class="tag">Компиляторы</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <nav class="table-of-contents fade-in-up delay-4">
+                    <h2 class="toc-title">Содержание статьи</h2>
+                    <ul class="toc-list">
+                        <li class="toc-item">
+                            <a href="#introduction" class="toc-link">Введение в оптимизацию</a>
+                        </li>
+                        <li class="toc-item">
+                            <a href="#memory-optimization" class="toc-link">Оптимизация работы с памятью</a>
+                        </li>
+                        <li class="toc-item">
+                            <a href="#algorithm-optimization" class="toc-link">Алгоритмическая оптимизация</a>
+                        </li>
+                        <li class="toc-item">
+                            <a href="#compiler-optimization" class="toc-link">Оптимизации компилятора</a>
+                        </li>
+                        <li class="toc-item">
+                            <a href="#profiling-tools" class="toc-link">Инструменты профилирования</a>
+                        </li>
+                        <li class="toc-item">
+                            <a href="#best-practices" class="toc-link">Практические рекомендации</a>
+                        </li>
+                        <li class="toc-item">
+                            <a href="#conclusion" class="toc-link">Заключение</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <section class="article-section-content fade-in-up delay-5" id="introduction">
+                    <h2 class="section-heading">Введение в оптимизацию</h2>
+                    
+                    <p class="article-text">
+                        Производительность является критически важным аспектом разработки на C++. В современном мире, где приложения должны обрабатывать огромные объемы данных в реальном времени, каждая микросекунда имеет значение. <strong>Оптимизация производительности</strong> – это не просто ускорение кода, это искусство создания эффективных решений.
+                    </p>
+
+                    <div class="highlight">
+                        <p>Важно помнить: преждевременная оптимизация – корень всех зол. Сначала код должен работать правильно, затем быть читаемым, и только потом быстрым.</p>
+                    </div>
+
+                    <p class="article-text">
+                        В этой статье мы рассмотрим комплексный подход к оптимизации C++ приложений, включающий анализ алгоритмов, оптимизацию работы с памятью, использование возможностей компилятора и современные инструменты профилирования.
+                    </p>
+                </section>
+
+                <section class="article-section-content fade-in-up" id="memory-optimization">
+                    <h2 class="section-heading">Оптимизация работы с памятью</h2>
+                    
+                    <p class="article-text">
+                        Эффективное управление памятью – ключевой фактор производительности C++ приложений. Неправильная работа с памятью может привести к <em>cache miss</em>, фрагментации и утечкам памяти.
+                    </p>
+
+                    <div class="code-block">
+                        <pre>
+// Плохой подход - множественные выделения памяти
+std::vector&lt;int&gt; data;
+for (int i = 0; i < 1000000; ++i) {
+    data.push_back(i);  // Потенциальные реаллокации
+}
+
+// Хороший подход - резервирование памяти
+std::vector&lt;int&gt; optimized_data;
+optimized_data.reserve(1000000);  // Однократное выделение
+for (int i = 0; i < 1000000; ++i) {
+    optimized_data.push_back(i);
+}
+                        </pre>
+                    </div>
+
+                    <p class="article-text">
+                        Использование <strong>smart pointers</strong> и RAII-подхода не только обеспечивает безопасность, но и может улучшить производительность за счет предсказуемого управления ресурсами.
+                    </p>
+
+                    <div class="quote-block">
+                        Локальность данных критически важна для производительности современных процессоров. Структуры данных должны быть организованы так, чтобы максимизировать cache hits.
+                    </div>
+                </section>
+
+                <section class="article-section-content fade-in-up" id="algorithm-optimization">
+                    <h2 class="section-heading">Алгоритмическая оптимизация</h2>
+                    
+                    <p class="article-text">
+                        Выбор правильного алгоритма оказывает наибольшее влияние на производительность. Разница между O(n²) и O(n log n) алгоритмами становится критичной при работе с большими объемами данных.
+                    </p>
+
+                    <img src="https://via.placeholder.com/800x400/1a1a2e/00ffff?text=Algorithm+Complexity+Chart" alt="График сложности алгоритмов" class="article-image">
+                    <p class="image-caption">Сравнение временной сложности различных алгоритмов сортировки</p>
+
+                    <div class="code-block">
+                        <pre>
+// Эффективная реализация с использованием STL
+std::vector&lt;int&gt; numbers = {64, 34, 25, 12, 22, 11, 90};
+
+// Используем std::sort вместо собственной реализации
+std::sort(numbers.begin(), numbers.end());
+
+// Для частичной сортировки используем std::partial_sort
+std::partial_sort(numbers.begin(), numbers.begin() + 3, numbers.end());
+                        </pre>
+                    </div>
+
+                    <div class="highlight">
+                        <p>STL алгоритмы оптимизированы и протестированы. В большинстве случаев они превосходят самописные реализации по производительности.</p>
+                    </div>
+                </section>
+
+                <section class="article-section-content fade-in-up" id="compiler-optimization">
+                    <h2 class="section-heading">Оптимизации компилятора</h2>
+                    
+                    <p class="article-text">
+                        Современные компиляторы обладают мощными возможностями оптимизации. Понимание того, как работают эти оптимизации, поможет писать код, который компилятор сможет эффективно оптимизировать.
+                    </p>
+
+                    <div class="code-block">
+                        <pre>
+// Компилятор может оптимизировать этот код
+inline int square(int x) {
+    return x * x;
+}
+
+// Использование constexpr для вычислений во время компиляции
+constexpr int factorial(int n) {
+    return (n <= 1) ? 1 : n * factorial(n - 1);
+}
+
+// Значение вычисляется во время компиляции
+constexpr int result = factorial(5);
+                        </pre>
+                    </div>
+
+                    <p class="article-text">
+                        Флаги оптимизации компилятора (-O2, -O3) могут существенно улучшить производительность, но важно тестировать результат, так как агрессивные оптимизации иногда могут изменить поведение программы.
+                    </p>
+                </section>
+
+                <section class="article-section-content fade-in-up" id="profiling-tools">
+                    <h2 class="section-heading">Инструменты профилирования</h2>
+                    
+                    <p class="article-text">
+                        Профилирование – это измерение производительности программы для выявления узких мест. Без точных измерений оптимизация превращается в гадание.
+                    </p>
+
+                    <div class="highlight">
+                        <p>Популярные инструменты: Valgrind, Intel VTune, Google Benchmark, gprof. Каждый имеет свои преимущества для различных типов анализа.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <pre>
+#include &lt;chrono&gt;
+#include &lt;iostream&gt;
+
+// Простой замер времени выполнения
+auto start = std::chrono::high_resolution_clock::now();
+
+// Код для измерения
+expensive_operation();
+
+auto end = std::chrono::high_resolution_clock::now();
+auto duration = std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(end - start);
+
+std::cout &lt;&lt; "Время выполнения: " &lt;&lt; duration.count() &lt;&lt; " микросекунд\n";
+                        </pre>
+                    </div>
+                </section>
+
+                <section class="article-section-content fade-in-up" id="best-practices">
+                    <h2 class="section-heading">Практические рекомендации</h2>
+                    
+                    <p class="article-text">
+                        Основываясь на многолетнем опыте разработки высокопроизводительных приложений, можно выделить несколько ключевых принципов:
+                    </p>
+
+                    <div class="quote-block">
+                        Оптимизируйте только после профилирования. Интуиция часто подводит в вопросах производительности.
+                    </div>
+
+                    <p class="article-text">
+                        <strong>Основные принципы:</strong> Избегайте ненужных копирований объектов, используйте move-семантику, предпочитайте stack-аллокацию heap-аллокации где это возможно, и всегда измеряйте результат оптимизации.
+                    </p>
+
+                    <img src="https://via.placeholder.com/800x300/1a1a2e/ff0080?text=Performance+Optimization+Workflow" alt="Процесс оптимизации производительности" class="article-image">
+                    <p class="image-caption">Итеративный процесс оптимизации производительности</p>
+                </section>
+
+                <section class="article-section-content fade-in-up" id="conclusion">
+                    <h2 class="section-heading">Заключение</h2>
+                    
+                    <p class="article-text">
+                        Оптимизация производительности C++ – это непрерывный процесс, требующий глубокого понимания как языка программирования, так и архитектуры современных процессоров. <strong>Ключ к успеху</strong> заключается в балансе между читаемостью кода и его производительностью.
+                    </p>
+
+                    <div class="highlight">
+                        <p>Помните: лучшая оптимизация – это правильно выбранный алгоритм. Микрооптимизации важны, но не должны затмевать архитектурные решения.</p>
+                    </div>
+
+                    <p class="article-text">
+                        Современные компиляторы и инструменты разработки предоставляют мощные возможности для создания высокопроизводительных приложений. Используйте профилирование для выявления реальных проблем, применяйте proven practices и не забывайте измерять результаты ваших оптимизаций.
+                    </p>
+
+                    <p class="article-text">
+                        Производительность – это не самоцель, а средство для создания лучшего пользовательского опыта. <em>Оптимизируйте осознанно</em> и всегда помните о maintainability вашего кода.
+                    </p>
+
+                    <div class="quote-block">
+                        Преждевременная оптимизация – корень всех зол, но своевременная оптимизация – залог успеха проекта.
+                    </div>
+                </section>
+
+                <nav class="article-navigation fade-in-up">
+                    <!-- <a href="advanced_cpp_features.html" class="nav-btn">
+                        ← Предыдущая статья
+                        <div class="nav-subtitle">Продвинутые возможности C++</div>
+                    </a> -->
+                    <a href="fpga_topology_article.html" class="nav-btn">
+                        Следующая статья →
+                        <div class="nav-subtitle">Синтезатор топологических ограничений ПЛИС</div>
+                    </a>
+                </nav>
+
+                <div class="share-section fade-in-up">
+                    <h3 class="share-title">Поделиться статьей</h3>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" onclick="shareArticle('telegram')">
+                            📱 Telegram
+                        </a>
+                        <a href="#" class="share-btn" onclick="shareArticle('twitter')">
+                            🐦 Twitter
+                        </a>
+                        <a href="#" class="share-btn" onclick="shareArticle('linkedin')">
+                            💼 LinkedIn
+                        </a>
+                        <a href="#" class="share-btn" onclick="copyToClipboard()">
+                            🔗 Копировать ссылку
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // Прогресс чтения
+        function updateReadingProgress() {
+            const article = document.querySelector('.article-content');
+            const progressBar = document.getElementById('reading-progress');
+            
+            if (article && progressBar) {
+                const articleTop = article.offsetTop;
+                const articleHeight = article.offsetHeight;
+                const windowHeight = window.innerHeight;
+                const scrollTop = window.pageYOffset;
+                
+                const progress = Math.min(
+                    Math.max((scrollTop - articleTop + windowHeight) / articleHeight, 0),
+                    1
+                );
+                
+                progressBar.style.width = (progress * 100) + '%';
+            }
+        }
+
+        // Плавная прокрутка к якорям
+        function smoothScrollToAnchor() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 120;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Функции для кнопок поделиться
+        function shareArticle(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+
+        function copyToClipboard() {
+            const url = window.location.href;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('Ссылка скопирована в буфер обмена!');
+                });
+            } else {
+                // Fallback для старых браузеров
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Ссылка скопирована в буфер обмена!');
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--primary-color);
+                color: var(--bg-color);
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-family: 'Rajdhani', sans-serif;
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideInRight 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Анимация появления элементов при скролле
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in-up');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('animate');
+                }
+            });
+        }
+
+        // Переключение языка
+        function toggleLanguage() {
+            const langToggle = document.getElementById('language-toggle');
+            const currentLang = langToggle.textContent;
+            
+            if (currentLang === 'RU') {
+                langToggle.textContent = 'EN';
+                // Здесь можно добавить логику переключения на английский язык
+                showNotification('Переключение языка будет доступно в следующем обновлении');
+            } else {
+                langToggle.textContent = 'RU';
+                // Логика переключения на русский язык
+            }
+        }
+
+        // Инициализация всех функций
+        document.addEventListener('DOMContentLoaded', function() {
+            smoothScrollToAnchor();
+            animateOnScroll();
+            
+            // Обработчики событий
+            window.addEventListener('scroll', () => {
+                updateReadingProgress();
+                animateOnScroll();
+            });
+            
+            const langToggle = document.getElementById('language-toggle');
+            if (langToggle) {
+                langToggle.addEventListener('click', toggleLanguage);
+            }
+            
+            // Добавляем CSS для анимаций уведомлений
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideOutRight {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+                
+                .fade-in-up.animate {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Telegram Web App integration
+        if (window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            
+            // Настройка темы под Telegram
+            if (tg.colorScheme === 'dark') {
+                document.documentElement.classList.add('telegram-dark');
+            }
+            
+            // Обработка кнопки "Назад" в Telegram
+            tg.BackButton.onClick(() => {
+                window.history.back();
+            });
+            
+            tg.BackButton.show();
+        }
+    </script>
+</body>
+</html>

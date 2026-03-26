@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Примеры кода | Леонтьев Антон</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Матричный фон -->
+    <div class="matrix-background"></div>
+    <div class="particle-field"></div>
+
+    <!-- Стеклянный хедер -->
+    <header class="glass-header">
+        <div class="container">
+            <nav class="nav-container">
+                <a href="index.html" class="back-btn cyber-btn">
+                    <span class="btn-text" data-ru="← Главная" data-en="← Home">← Главная</span>
+                    <div class="btn-glow"></div>
+                </a>
+                
+                <!-- Логотип -->
+                <a href="index.html">
+                    <div class="logo">
+                        <div class="orbital-ring ring-1"></div>
+                        <div class="orbital-ring ring-2"></div>
+                        <img src="logo.jpg" alt="Антон Леонтьев" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-fallback">АЛ</div>
+                    </div>
+                </a>
+
+                <!-- Основное меню -->
+                <ul class="menu">
+                    <li><a href="#examples" class="active" data-ru="Примеры" data-en="Examples">Примеры</a></li>
+                    <li><a href="#technologies" data-ru="Технологии" data-en="Technologies">Технологии</a></li>
+                    <li><a href="#projects" data-ru="Проекты" data-en="Projects">Проекты</a></li>
+                </ul>
+
+                <!-- Контролы -->
+                <div class="controls">
+                    <button class="language-title" id="language-toggle">
+                        <span data-ru="RU" data-en="EN">RU</span>
+                    </button>
+                    <!-- Мобильное меню -->
+                    <button class="mobile-menu-btn" id="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <ul>
+                <li><a href="#examples" data-ru="Примеры" data-en="Examples">Примеры</a></li>
+                <li><a href="#technologies" data-ru="Технологии" data-en="Technologies">Технологии</a></li>
+                <li><a href="#projects" data-ru="Проекты" data-en="Projects">Проекты</a></li>
+                <li><a href="index.html" data-ru="Главная" data-en="Home">Главная</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Заголовок страницы -->
+        <section class="section">
+            <div class="page-header">
+                <h1 class="glitch-text" data-ru="Примеры кода" data-en="Code Examples">Примеры кода</h1>
+                <div class="typing-container">
+                    <p class="typing-text" data-ru="Демонстрация навыков и технических решений" data-en="Demonstration of skills and technical solutions">
+                    Демонстрация навыков и технических решений
+                    </p>
+                </div>
+            </div>
+
+            <!-- Фильтр технологий -->
+            <div class="tech-filter">
+                <button class="cyber-btn active" data-tech="all">
+                    <span class="btn-text" data-ru="Все" data-en="All">Все</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="cyber-btn" data-tech="cpp">
+                    <span class="btn-text">C++</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="cyber-btn" data-tech="qt">
+                    <span class="btn-text">Qt</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="cyber-btn" data-tech="python">
+                    <span class="btn-text">Python</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="cyber-btn" data-tech="algorithms">
+                    <span class="btn-text" data-ru="Алгоритмы" data-en="Algorithms">Алгоритмы</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Сетка примеров -->
+        <!--<section class="section" id="examples">
+            <div class="examples-grid portfolio-grid">
+                
+                <!-- Пример 1: Многопоточный пул задач -->
+                <!--<div class="cyber-card example-card fade-in" data-tech="cpp">
+                    <div class="card-header">
+                        <div class="date-badge">C++17/20</div>
+                        <h3>Многопоточный пул задач</h3>
+                        <h4>Thread Pool Implementation</h4>
+                        <p class="company-type">Системное программирование</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <p class="fade-in-text">
+                            Эффективная реализация пула потоков для обработки задач с использованием современного C++17/20.
+                        </p>
+                        
+                        <h5>Ключевые особенности:</h5>
+                        <ul class="cyber-list">
+                            <li>Thread-safe очередь задач с std::queue</li>
+                            <li>Автоматическое масштабирование потоков</li>
+                            <li>RAII управление ресурсами</li>
+                            <li>Future/Promise для получения результатов</li>
+                            <li>Graceful shutdown с join всех потоков</li>
+                        </ul>
+                        
+                        <div class="tech-tags">
+                            <span class="cyber-tag">C++17</span>
+                            <span class="cyber-tag">STL</span>
+                            <span class="cyber-tag">Threading</span>
+                            <span class="cyber-tag">Concurrency</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary">
+                            <span class="btn-text">Смотреть код 👁️</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                        <button class="cyber-btn secondary">
+                            <span class="btn-text">GitHub 📁</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Пример 2: Кастомные Qt виджеты -->
+                <!--<div class="cyber-card example-card fade-in delay-1" data-tech="qt">
+                    <div class="card-header">
+                        <div class="date-badge">Qt6/QML</div>
+                        <h3>Кастомные Qt виджеты</h3>
+                        <h4>Modern UI Components</h4>
+                        <p class="company-type">GUI разработка</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <p class="fade-in-text">
+                            Набор переиспользуемых виджетов с современным дизайном и плавными анимациями.
+                        </p>
+                        
+                        <h5>Компоненты:</h5>
+                        <ul class="cyber-list">
+                            <li>Анимированные кнопки с hover эффектами</li>
+                            <li>Кастомный прогресс-бар с градиентами</li>
+                            <li>Стилизованные input поля</li>
+                            <li>Модальные окна с backdrop blur</li>
+                            <li>Responsive layout system</li>
+                        </ul>
+                        
+                        <div class="tech-tags">
+                            <span class="cyber-tag">Qt6</span>
+                            <span class="cyber-tag">QML</span>
+                            <span class="cyber-tag">Graphics</span>
+                            <span class="cyber-tag">Animation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary">
+                            <span class="btn-text">Демо 🎮</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                        <button class="cyber-btn secondary">
+                            <span class="btn-text">Исходники 📁</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Пример 3: Трейдинг-бот -->
+                <!--<div class="cyber-card example-card fade-in delay-2" data-tech="python">
+                    <div class="card-header">
+                        <div class="date-badge">Python 3.9+</div>
+                        <h3>Трейдинг-бот на Python</h3>
+                        <h4>Automated Trading System</h4>
+                        <p class="company-type">Финтех решение</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <p class="fade-in-text">
+                            Автоматизированная система торговли с подключением к API брокера и техническим анализом.
+                        </p>
+                        
+                        <h5>Функциональность:</h5>
+                        <ul class="cyber-list">
+                            <li>Интеграция с API Тинькофф Инвестиций</li>
+                            <li>Технические индикаторы: RSI, SMA, MACD</li>
+                            <li>Risk management и stop-loss</li>
+                            <li>Детальное логирование сделок в CSV</li>
+                            <li>Telegram уведомления о сделках</li>
+                        </ul>
+                        
+                        <div class="tech-tags">
+                            <span class="cyber-tag">Python</span>
+                            <span class="cyber-tag">Pandas</span>
+                            <span class="cyber-tag">API</span>
+                            <span class="cyber-tag">FinTech</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary">
+                            <span class="btn-text">Детально 📊</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                        <button class="cyber-btn secondary">
+                            <span class="btn-text">GitHub 📁</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Пример 4: Алгоритмы сортировки -->
+                <!--<div class="cyber-card example-card fade-in delay-3" data-tech="algorithms">
+                    <div class="card-header">
+                        <div class="date-badge">Algorithms</div>
+                        <h3>Визуализация алгоритмов</h3>
+                        <h4>Sorting Algorithms Visualizer</h4>
+                        <p class="company-type">Образовательный проект</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <p class="fade-in-text">
+                            Интерактивная визуализация алгоритмов сортировки с анализом сложности.
+                        </p>
+                        
+                        <h5>Алгоритмы:</h5>
+                        <ul class="cyber-list">
+                            <li>Bubble Sort с пошаговой анимацией</li>
+                            <li>Quick Sort с разделением</li>
+                            <li>Merge Sort с визуализацией слияния</li>
+                            <li>Heap Sort с построением кучи</li>
+                            <li>Анализ временной сложности O(n)</li>
+                        </ul>
+                        
+                        <div class="tech-tags">
+                            <span class="cyber-tag">JavaScript</span>
+                            <span class="cyber-tag">Canvas</span>
+                            <span class="cyber-tag">Algorithms</span>
+                            <span class="cyber-tag">Visualization</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary">
+                            <span class="btn-text">Запустить 🚀</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                        <button class="cyber-btn secondary">
+                            <span class="btn-text">Код 📁</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Пример 5: Микросервисная архитектура -->
+                <!--<div class="cyber-card example-card fade-in delay-4" data-tech="cpp">
+                    <div class="card-header">
+                        <div class="date-badge">C++/Docker</div>
+                        <h3>Микросервисная архитектура</h3>
+                        <h4>Distributed System</h4>
+                        <p class="company-type">Backend разработка</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <p class="fade-in-text">
+                            Высоконагруженная система микросервисов с балансировкой нагрузки и мониторингом.
+                        </p>
+                        
+                        <h5>Архитектура:</h5>
+                        <ul class="cyber-list">
+                            <li>RESTful API с JSON/gRPC</li>
+                            <li>Docker контейнеризация</li>
+                            <li>nginx load balancer</li>
+                            <li>Redis для кэширования</li>
+                            <li>Prometheus мониторинг</li>
+                        </ul>
+                        
+                        <div class="tech-tags">
+                            <span class="cyber-tag">C++</span>
+                            <span class="cyber-tag">Docker</span>
+                            <span class="cyber-tag">gRPC</span>
+                            <span class="cyber-tag">Redis</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary">
+                            <span class="btn-text">Архитектура 🏗️</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                        <button class="cyber-btn secondary">
+                            <span class="btn-text">Docker 📁</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Пример 6: AI чат-бот -->
+                <!--<div class="cyber-card example-card fade-in delay-5" data-tech="python">
+                    <div class="card-header">
+                        <div class="date-badge">AI/ML</div>
+                        <h3>AI чат-бот с NLP</h3>
+                        <h4>Natural Language Processing</h4>
+                        <p class="company-type">Машинное обучение</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <p class="fade-in-text">
+                            Интеллектуальный чат-бот с обработкой естественного языка и машинным обучением.
+                        </p>
+                        
+                        <h5>Возможности:</h5>
+                        <ul class="cyber-list">
+                            <li>Обработка текста с NLTK/spaCy</li>
+                            <li>Sentiment analysis настроения</li>
+                            <li>Intent classification с TensorFlow</li>
+                            <li>Contextual conversations</li>
+                            <li>Интеграция с Telegram Bot API</li>
+                        </ul>
+                        
+                        <div class="tech-tags">
+                            <span class="cyber-tag">Python</span>
+                            <span class="cyber-tag">TensorFlow</span>
+                            <span class="cyber-tag">NLP</span>
+                            <span class="cyber-tag">AI/ML</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary">
+                            <span class="btn-text">Попробовать 🤖</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                        <button class="cyber-btn secondary">
+                            <span class="btn-text">Модель 📁</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>-->
+
+        <!-- Coming Soon секция -->
+        <!--<section class="coming-soon">
+            <div class="coming-soon-icon">🚧</div>
+            <div class="coming-soon-text">Скоро будут добавлены новые примеры!</div>
+            <div class="coming-soon-subtext">
+                Следите за обновлениями: WebGL 3D визуализация, блокчейн DApp, IoT система мониторинга
+            </div>
+            <div class="tech-tags" style="justify-content: center; margin-top: 20px;">
+                <span class="cyber-tag">WebGL</span>
+                <span class="cyber-tag">Blockchain</span>
+                <span class="cyber-tag">IoT</span>
+                <span class="cyber-tag">React</span>
+            </div>
+        </section>-->
+
+        <!-- Секция технологий -->
+        <section class="section" id="technologies">
+            <h2 class="section-title">
+                <div class="title-line"></div>
+                <span class="btn-text" data-ru="Технологии" data-en="Technologies">Технологии</span>
+                <div class="title-line"></div>
+            </h2>
+            
+            <div class="cyber-card">
+                <div class="subsection-title" data-ru="Матрица навыков" data-en="Skills Matrix">Матрица навыков</div>
+                <div class="skills-matrix">
+                    <div class="skill-node">C++</div>
+                    <div class="skill-node">Python</div>
+                    <div class="skill-node">Qt/QML</div>
+                    <div class="skill-node">JavaScript</div>
+                    <div class="skill-node">TypeScript</div>
+                    <div class="skill-node">React</div>
+                    <div class="skill-node">Node.js</div>
+                    <div class="skill-node">Docker</div>
+                    <div class="skill-node">PostgreSQL</div>
+                    <div class="skill-node">Redis</div>
+                    <div class="skill-node">Git</div>
+                    <div class="skill-node">Linux</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Киберпанк футер -->
+    <footer class="cyber-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    <div class="footer-text" data-ru="© 2024 Антон Леонтьев • Системы будущего уже здесь" data-en="© 2024 Anton Leontyev • The systems of the future are already here">
+                    © 2024 Антон Леонтьев • Системы будущего уже здесь
+                    </div>
+                </p>
+                <div class="footer-pulse"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация Telegram WebApp
+        if (window.Telegram && Telegram.WebApp) {
+            Telegram.WebApp.ready();
+            
+            // Адаптация к теме Telegram
+            if (Telegram.WebApp.colorScheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        }
+
+        // Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            
+            // Анимация кнопки меню
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            spans.forEach((span, index) => {
+                if (mobileMenu.classList.contains('active')) {
+                    if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    if (index === 1) span.style.opacity = '0';
+                    if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                } else {
+                    span.style.transform = '';
+                    span.style.opacity = '';
+                }
+            });
+        });
+
+        // Закрытие мобильного меню при клике вне его
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                // Сброс анимации кнопки
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.transform = '';
+                    span.style.opacity = '';
+                });
+            }
+        });
+
+        // Фильтр по технологиям
+        const techButtons = document.querySelectorAll('[data-tech]');
+        const exampleCards = document.querySelectorAll('.example-card[data-tech]');
+
+        techButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tech = button.dataset.tech;
+                
+                // Обновление активной кнопки
+                techButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Фильтрация карточек
+                exampleCards.forEach(card => {
+                    if (tech === 'all' || card.dataset.tech === tech) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeInUp 0.5s ease-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Переключение языка
+        const languageToggle = document.getElementById('language-toggle');
+            let currentLang = 'ru';
+            if (languageToggle) {
+                languageToggle.addEventListener('click', function() {
+                    currentLang = currentLang === 'ru' ? 'en' : 'ru';
+                    updateLanguage();
+                });
+            }
+            function updateLanguage() {                
+                const elements = document.querySelectorAll('[data-ru]');
+                const langBtn = document.getElementById('lang-btn');
+                
+                elements.forEach(element => {
+                    const text = element.getAttribute(`data-${currentLang}`);
+                    if (text) {
+                        if (element.tagName === 'INPUT' && element.type === 'submit') {
+                            element.value = text;
+                        } else {
+                            element.textContent = text;
+                        }
+                    }
+                });
+                
+                document.documentElement.lang = currentLang;
+
+                const glitchText = document.querySelector('.glitch-text');
+                if (glitchText) {
+                    const newText = glitchText.getAttribute(`data-${currentLang}`);
+                    if (newText) {
+                        glitchText.textContent = newText;
+                        glitchText.setAttribute('data-text', newText);
+                        restartGlitchAnimation(glitchText);
+                    }
+                }
+            }
+
+        // Анимация появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = entry.target.style.animation || 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Наблюдение за элементами
+        document.querySelectorAll('.fade-in, .slide-left, .slide-right, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Эффект печатающегося текста
+        const typingText = document.querySelector('.typing-text');
+        if (typingText) {
+            const text = typingText.textContent;
+            typingText.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    typingText.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+        }
+
+        // Глитч эффект для заголовка
+        const glitchText = document.querySelector('.glitch-text');
+        if (glitchText) {
+            const text = glitchText.textContent;
+            glitchText.setAttribute('data-text', text);
+        }
+
+        // Плавная прокрутка к секциям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Обработка кликов по кнопкам примеров
+        // document.querySelectorAll('.cyber-btn').forEach(btn => {
+        //     btn.addEventListener('click', function(e) {
+        //         if (!this.hasAttribute('data-tech') && !this.id) {
+        //             e.preventDefault();
+                    
+        //             // Создание эффекта ряби
+        //             const ripple = document.createElement('div');
+        //             ripple.style.position = 'absolute';
+        //             ripple.style.borderRadius = '50%';
+        //             ripple.style.background = 'rgba(0, 255, 255, 0.5)';
+        //             ripple.style.transform = 'scale(0)';
+        //             ripple.style.animation = 'ripple 0.6s linear';
+        //             ripple.style.left = '50%';
+        //             ripple.style.top = '50%';
+        //             ripple.style.width = ripple.style.height = '20px';
+        //             ripple.style.marginLeft = ripple.style.marginTop = '-10px';
+                    
+        //             this.appendChild(ripple);
+                    
+        //             setTimeout(() => {
+        //                 ripple.remove();
+        //             }, 600);
+                    
+        //             // Временное уведомление
+        //             if (window.Telegram && Telegram.WebApp) {
+        //                 Telegram.WebApp.showAlert('Детальная страница проекта в разработке');
+        //             } else {
+        //                 alert('Детальная страница проекта в разработке');
+        //             }
+        //         }
+        //     });
+        // });
+
+        // CSS для анимации ряби
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
