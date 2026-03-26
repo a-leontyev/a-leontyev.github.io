@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<script>var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Публикации — Антон Леонтьев</title>
   <meta name="description" content="Научные и технические публикации Антона Леонтьева: C++, FPGA, гидродинамика, OT/CRDT, оптимизация производительности.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>А</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -16,6 +19,7 @@
     <div class="nav-right">
       <a href="./" class="nav-link" style="color:var(--t1)">Публикации</a>
       <a href="../extensions/" class="nav-link">Расширения</a>
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">☾</button>
       <button class="lang-btn" id="lang-toggle" aria-label="Switch language">EN</button>
     </div>
   </nav>

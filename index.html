@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<script>var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Антон Леонтьев — Team Lead / Senior C++ Developer</title>
@@ -8,10 +9,12 @@
   <meta property="og:title" content="Антон Леонтьев — Team Lead / Senior C++ Developer">
   <meta property="og:description" content="C++ × Управление × Аналитика. Формульные движки, XLSX, OT. 40 инженеров. 50+ публикаций. VSCode extensions.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://leontevanton.github.io">
-  <meta property="og:image" content="https://leontevanton.github.io/assets/photo.jpg">
+  <meta property="og:url" content="https://a-leontyev.github.io/leontevanton.github.io/">
+  <meta property="og:image" content="https://a-leontyev.github.io/leontevanton.github.io/assets/photo.jpg">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>А</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,6 +25,7 @@
     <div class="nav-right">
       <a href="publications/" class="nav-link" data-ru="Публикации" data-en="Publications">Публикации</a>
       <a href="extensions/" class="nav-link" data-ru="Расширения" data-en="Extensions">Расширения</a>
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">☾</button>
       <button class="lang-btn" id="lang-toggle" aria-label="Switch language">EN</button>
     </div>
   </nav>
@@ -32,7 +36,7 @@
 <div class="wrap">
   <section class="hero">
     <div class="avatar">
-      <img src="assets/photo.jpg" alt="Антон Леонтьев" width="120" height="120" loading="eager">
+      <img src="assets/photo.jpg" alt="Антон Леонтьев"  loading="eager">
     </div>
     <div class="hero-text">
       <h1 data-ru="Антон Леонтьев" data-en="Antony Leontev">Антон Леонтьев</h1>
@@ -228,14 +232,48 @@
 <div class="wrap">
   <section>
     <div class="sh">
+      <div class="sh-overline" data-ru="Квалификация" data-en="Credentials">Квалификация</div>
+      <h2 class="sh-title" data-ru="Сертификаты и патент" data-en="Certificates & patent">Сертификаты и патент</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
+      <a href="credentials/" class="cred-thumb" style="display:block;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface);text-decoration:none;transition:all .15s">
+        <img src="assets/credentials/patent.jpg" alt="Патент РФ" style="width:100%;height:100px;object-fit:cover;object-position:top" loading="lazy">
+        <div style="padding:8px 10px;text-align:center;font-size:11px;color:var(--t2)" data-ru="Патент РФ · 2020" data-en="RU Patent · 2020">Патент РФ · 2020</div>
+      </a>
+      <a href="credentials/" class="cred-thumb" style="display:block;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface);text-decoration:none;transition:all .15s">
+        <img src="assets/credentials/stratoplan-ceo201.jpg" alt="CEO 201" style="width:100%;height:100px;object-fit:cover;object-position:center" loading="lazy">
+        <div style="padding:8px 10px;text-align:center;font-size:11px;color:var(--t2)">CEO 201 · Stratoplan</div>
+      </a>
+      <a href="credentials/" class="cred-thumb" style="display:block;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface);text-decoration:none;transition:all .15s">
+        <img src="assets/credentials/google-data-analytics.jpg" alt="Google DA" style="width:100%;height:100px;object-fit:cover;object-position:top" loading="lazy">
+        <div style="padding:8px 10px;text-align:center;font-size:11px;color:var(--t2)">Google Data Analytics</div>
+      </a>
+      <a href="credentials/" class="cred-thumb" style="display:block;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface);text-decoration:none;transition:all .15s">
+        <img src="assets/credentials/google-project-management.jpg" alt="Google PM" style="width:100%;height:100px;object-fit:cover;object-position:top" loading="lazy">
+        <div style="padding:8px 10px;text-align:center;font-size:11px;color:var(--t2)">Google Project Management</div>
+      </a>
+      <a href="credentials/" class="cred-thumb" style="display:block;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface);text-decoration:none;transition:all .15s">
+        <img src="assets/credentials/software-design-architecture.jpg" alt="SDA" style="width:100%;height:100px;object-fit:cover;object-position:top" loading="lazy">
+        <div style="padding:8px 10px;text-align:center;font-size:11px;color:var(--t2)">Software Design & Arch</div>
+      </a>
+    </div>
+    <a href="credentials/" class="section-link" data-ru="Все 8 сертификатов с верификацией →" data-en="All 8 credentials with verification →">Все 8 сертификатов с верификацией →</a>
+  </section>
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+  <section>
+    <div class="sh">
       <div class="sh-overline" data-ru="Ссылки" data-en="Links">Ссылки</div>
       <h2 class="sh-title" data-ru="Где ещё найти" data-en="Find me elsewhere">Где ещё найти</h2>
     </div>
     <div class="links-grid">
       <a href="https://habr.com/ru/users/aleontyev" class="link-item" target="_blank" rel="noopener"><span class="link-icon">H</span>Хабр<span class="link-arrow">↗</span></a>
       <a href="https://linkedin.com/in/leontevanton" class="link-item" target="_blank" rel="noopener"><span class="link-icon">in</span>LinkedIn<span class="link-arrow">↗</span></a>
-      <a href="https://github.com/leontevanton" class="link-item" target="_blank" rel="noopener"><span class="link-icon">GH</span>GitHub<span class="link-arrow">↗</span></a>
-      <a href="https://t.me/kod_i_kapital" class="link-item" target="_blank" rel="noopener"><span class="link-icon">TG</span><span data-ru="Код и капитал" data-en="Code & Capital">Код и капитал</span><span class="link-arrow">↗</span></a>
+      <a href="https://github.com/a-leontyev" class="link-item" target="_blank" rel="noopener"><span class="link-icon">GH</span>GitHub<span class="link-arrow">↗</span></a>
+      <a href="https://t.me/lucky_hand" class="link-item" target="_blank" rel="noopener"><span class="link-icon">TG</span><span data-ru="Код и капитал" data-en="Code & Capital">Код и капитал</span><span class="link-arrow">↗</span></a>
       <a href="https://elibrary.ru/author_items.asp?authorid=961704" class="link-item" target="_blank" rel="noopener"><span class="link-icon">eL</span>eLibrary<span class="link-arrow">↗</span></a>
       <a href="https://orcid.org/0000-0002-0608-4343" class="link-item" target="_blank" rel="noopener"><span class="link-icon">OR</span>ORCID<span class="link-arrow">↗</span></a>
     </div>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<script>var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Оптимизация производительности C++ | Леонтьев Антон</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="styles.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
     <style>
         /* Дополнительные стили для страницы статьи */
         .article-section {
@@ -577,6 +579,7 @@
             }
         }
     </style>
+  <link rel="stylesheet" href="../article-compat.css">
 </head>
 <body onselectstart="return false" oncontextmenu="return false">
     <div class="matrix-background"></div>
@@ -586,21 +589,23 @@
     <header class="glass-header">
         <div class="container">
             <nav class="nav-container">
-                <a href="publications_page.html" class="back-btn cyber-btn">
+                <a href="../" style="font-family:var(--m);font-size:14px;font-weight:500;color:var(--t1);text-decoration:none;margin-right:auto">А. Леонтьев</a>
+                <a href="../publications/" class="back-btn cyber-btn">
                     <span class="btn-text">← Публикации</span>
                     <div class="btn-glow"></div>
                 </a>
                 
-                <a href="index.html"></a>
+                <a href="../"></a>
                     <div class="logo">
                         <div class="orbital-ring ring-1"></div>
                         <div class="orbital-ring ring-2"></div>
-                        <img src="logo.jpg" alt="Леонтьев Антон" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <img src="../assets/logo.jpg" alt="Леонтьев Антон" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="logo-fallback">АЛ</div>
                     </div>
                 </a>
 
                 <div class="controls">
+                    <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme" style="font-family:var(--m);font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:100px;background:transparent;color:var(--t3);cursor:pointer">☾</button>
                     <button class="language-title" id="language-toggle">RU</button>
                 </div>
             </nav>
@@ -843,11 +848,11 @@ std::cout &lt;&lt; "Время выполнения: " &lt;&lt; duration.count()
                 </section>
 
                 <nav class="article-navigation fade-in-up">
-                    <!-- <a href="advanced_cpp_features.html" class="nav-btn">
+                    <!-- <a href="cpp-performance-optimization.html" class="nav-btn">
                         ← Предыдущая статья
                         <div class="nav-subtitle">Продвинутые возможности C++</div>
                     </a> -->
-                    <a href="fpga_topology_article.html" class="nav-btn">
+                    <a href="fpga-topology.html" class="nav-btn">
                         Следующая статья →
                         <div class="nav-subtitle">Синтезатор топологических ограничений ПЛИС</div>
                     </a>
@@ -1082,5 +1087,6 @@ std::cout &lt;&lt; "Время выполнения: " &lt;&lt; duration.count()
             tg.BackButton.show();
         }
     </script>
+<script src="../script.js"></script>
 </body>
 </html>
